@@ -21,6 +21,7 @@ let notes = [
 ]
 
 app.use(cors())
+app.use(express.static('dist'))
 
 app.get('/', (request, response) => {
     response.send('<h1>Welcome to my server, Shravani </h1>')
