@@ -52,33 +52,41 @@ const App = () => {
   const notesToShow = showAll ? notes : notes.filter(note => note.important === true);
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gray-100 p-6">
-      <h1 className="text-3xl font-semibold text-gray-800 mb-4">Notes</h1>
-      <button 
-        onClick={() => setShowAll(!showAll)} 
-        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600">
-        Show {showAll ? "important" : "all"}
-      </button>
-      <ul className="w-full max-w-md space-y-3">
-        {notesToShow.map((note) => (
-          <Note key={note.id} note={note} toggleImportance={() => toggleImportanceOf(note.id)} />
-        ))}
-      </ul>
-      <form onSubmit={addNote} className="mt-4 w-full max-w-md flex">
-        <input 
-          value={newNote} 
-          onChange={handleNoteChange} 
-          placeholder='A new note...' 
-          className="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
-        />
+    <div className="min-h-screen flex flex-col bg-gray-100">
+      {/* Fixed header section */}
+      <div className="sticky top-0 bg-gray-100 p-6 z-10 w-full flex flex-col items-center">
+        <h1 className="text-3xl font-semibold text-gray-800 mb-4">Notes</h1>
         <button 
-          type="submit" 
-          className="px-4 py-2 bg-green-500 text-white rounded-r-lg shadow-md hover:bg-green-600">
-          Save
+          onClick={() => setShowAll(!showAll)} 
+          className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600">
+          Show {showAll ? "important" : "all"}
         </button>
-      </form>
+        
+        <form onSubmit={addNote} className="mt-4 mb-8 w-full max-w-md flex">
+          <input 
+            value={newNote} 
+            onChange={handleNoteChange} 
+            placeholder='A new note...' 
+            className="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-0" 
+          />
+          <button 
+            type="submit" 
+            className="px-4 py-2 bg-green-500 text-white rounded-r-lg shadow-md hover:bg-green-600">
+            Save
+          </button>
+        </form>
+      </div>
+      
+      {/* Scrollable content section */}
+      <div className="flex-1 overflow-y-auto p-6 pt-0 flex justify-center">
+        <ul className="w-full max-w-md space-y-3">
+          {notesToShow.map((note) => (
+            <Note key={note.id} note={note} toggleImportance={() => toggleImportanceOf(note.id)} />
+          ))}
+        </ul>
+      </div>
     </div>
   );
-};
+}
 
 export default App;
