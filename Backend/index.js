@@ -116,7 +116,7 @@ const errorHandler = (error, req, res, next) => {
         return res.status(400).send({ error: 'malformatted id' })
     }
     else if(error.name==='ValidationError'){
-        return res.status(400).json({error:error.message})
+        return res.status(400).json({error:"Entered note is shorter than the minimum allowed length (5)."})
     }
     next(error)
 }
